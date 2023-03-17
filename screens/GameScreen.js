@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, Alert, Text, FlatList } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
@@ -60,7 +60,7 @@ function GameScreen({ userNumber, onGameOver }) {
     );
 
     setCurrentGuess(newRndNumber);
-    setGuessRounds(prevGuessRounds => [newRndNumber, ...prevGuessRounds])
+    setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
   }
 
   return (
@@ -68,23 +68,29 @@ function GameScreen({ userNumber, onGameOver }) {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <InstructionText style={styles.instructionText}>Higher or Lower?</InstructionText>
+        <InstructionText style={styles.instructionText}>
+          Higher or Lower?
+        </InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "lower")}>
-              <Ionicons name='md-remove' size={24} color='white' />
+              <Ionicons name="md-remove" size={24} color="white" />
             </PrimaryButton>
           </View>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, "greater")}>
-              <Ionicons name='md-add' size={24} color='white' />
+              <Ionicons name="md-add" size={24} color="white" />
             </PrimaryButton>
           </View>
         </View>
       </Card>
       <View>
         {/* {guessRounds.map(guessRound => <Text key={guessRound}>{guessRound}</Text>)} */}
-        <FlatList></FlatList>
+        <FlatList
+          data={guessRounds}
+          renderItem={(itemData) => <Text>{itemData.item}</Text>}
+          keyExtractor={(item) => item}
+        />
       </View>
     </View>
   );
@@ -98,12 +104,12 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   instructionText: {
-    marginBottom: 12
+    marginBottom: 12,
   },
   buttonsContainer: {
     flexDirection: "row",
   },
   buttonContainer: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });
